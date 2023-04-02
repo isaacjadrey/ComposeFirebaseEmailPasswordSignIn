@@ -1,4 +1,4 @@
-package com.cwj.composefirebasesigninemailpassword.ui.theme
+package com.cwj.composefirebasesigninemailpassword.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
