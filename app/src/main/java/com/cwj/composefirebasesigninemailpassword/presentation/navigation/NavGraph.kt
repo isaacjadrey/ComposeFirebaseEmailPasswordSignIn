@@ -1,6 +1,8 @@
 package com.cwj.composefirebasesigninemailpassword.presentation.navigation
 
 import androidx.compose.animation.*
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.cwj.composefirebasesigninemailpassword.presentation.navigation.Screens.*
@@ -17,22 +19,62 @@ fun NavGraph(navController: NavHostController) {
     AnimatedNavHost(
         navController = navController,
         startDestination = Login.route,
-        enterTransition = {
-            slideInHorizontally(initialOffsetX = { 1000 })
-//            fadeIn(animationSpec = tween(2000))
-        },
-        exitTransition = { slideOutHorizontally(targetOffsetX = { -1000 }) }
+//        enterTransition = {
+//            slideInHorizontally(initialOffsetX = { 1000 })
+////            fadeIn(animationSpec = tween(2000))
+//        },
+//        exitTransition = { slideOutHorizontally(targetOffsetX = { -1000 }) }
     ) {
-        composable(Login.route) {
+        composable(
+            Login.route,
+            exitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -1000 },
+                    animationSpec = tween(1000, easing = FastOutSlowInEasing)
+                ) + fadeOut(animationSpec = tween(1500))
+            },
+            popEnterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { -1000 },
+                    animationSpec = tween(1000, easing = FastOutSlowInEasing)
+                ) + fadeIn(animationSpec = tween(1500))
+            }
+        ) {
             LoginScreen(
                 navigateToForgotPassword = { navController.navigate(ForgotPassword.route) },
                 navigateToSignUp = { navController.navigate(Signup.route) }
             )
         }
-        composable(ForgotPassword.route) {
+        composable(ForgotPassword.route,
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 1000 },
+                    animationSpec = tween(1000, easing = FastOutSlowInEasing)
+                ) + fadeIn(animationSpec = tween(1500))
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { 1000 },
+                    animationSpec = tween(1000, easing = FastOutSlowInEasing)
+                ) + fadeOut(animationSpec = tween(1500))
+            }
+        ) {
             ForgotPasswordScreen()
         }
-        composable(Signup.route) {
+        composable(Signup.route,
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 1000 },
+                    animationSpec = tween(1000, easing = FastOutSlowInEasing)
+                ) + fadeIn(animationSpec = tween(1500))
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { 1000 },
+                    animationSpec = tween(1000, easing = FastOutSlowInEasing)
+                ) + fadeOut(animationSpec = tween(1500))
+            }
+        ) {
             SignUpScreen(navigateToLogin = { navController.popBackStack() })
         }
         composable(Home.route) {
