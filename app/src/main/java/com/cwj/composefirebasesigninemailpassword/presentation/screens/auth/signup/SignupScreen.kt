@@ -28,7 +28,9 @@ import com.cwj.composefirebasesigninemailpassword.util.Constants.HAVE_ACCOUNT
 import com.cwj.composefirebasesigninemailpassword.util.Constants.SIGNUP
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(
+    navigateToLogin: () -> Unit
+) {
     var email by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(Constants.EMPTY_VALUE))
     }
@@ -48,13 +50,16 @@ fun SignUpScreen() {
         PasswordTextField(password = password, onValueChange = {newValue -> password = newValue })
         LargeSpacer()
         AuthButton(text = SIGNUP, onClickAction = {})
-        BigSpacer()
-        AccountQueryText(text = HAVE_ACCOUNT, navigateToSignUp = {})
+        LargeSpacer()
+        AccountQueryText(
+            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+            text = HAVE_ACCOUNT,
+            navigateToSignUp = navigateToLogin)
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun SignupPreview() {
-    SignUpScreen()
+    SignUpScreen(navigateToLogin = {})
 }

@@ -3,20 +3,20 @@ package com.cwj.composefirebasesigninemailpassword.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.cwj.composefirebasesigninemailpassword.presentation.screens.auth.forgot_password.ForgotPasswordScreen
-import com.cwj.composefirebasesigninemailpassword.presentation.screens.auth.login.LoginScreen
-import com.cwj.composefirebasesigninemailpassword.presentation.screens.auth.signup.SignUpScreen
+import com.cwj.composefirebasesigninemailpassword.presentation.navigation.NavGraph
 import com.cwj.composefirebasesigninemailpassword.presentation.screens.home.HomeScreen
 import com.cwj.composefirebasesigninemailpassword.presentation.ui.theme.ComposeFirebaseSignInEmailPasswordTheme
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -29,7 +29,8 @@ class MainActivity : ComponentActivity() {
 //                    LoginScreen()
 //                    SignUpScreen()
 //                    ForgotPasswordScreen()
-                    HomeScreen()
+//                    HomeScreen()
+                    NavGraph(navController = rememberAnimatedNavController())
                 }
             }
         }

@@ -7,6 +7,8 @@ object Constants {
      * this acts as a quick link to access string resources
      */
 
+    const val TAG = "CFSEPTag"
+
     // Screens
     const val LOGIN_SCREEN = "Login"
     const val SIGNUP_SCREEN = "Sign up"

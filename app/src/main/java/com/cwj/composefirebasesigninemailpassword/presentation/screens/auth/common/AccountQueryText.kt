@@ -10,10 +10,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun AccountQueryText(text: String, navigateToSignUp: () -> Unit) {
+fun AccountQueryText(modifier: Modifier = Modifier,text: String, navigateToSignUp: () -> Unit) {
     Text(
         text = text,
-        modifier = Modifier.fillMaxWidth().clickable { navigateToSignUp() },
+        modifier = modifier.clickable { navigateToSignUp() },
         fontSize = 18.sp,
         textAlign = TextAlign.Center
     )

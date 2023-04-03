@@ -1,6 +1,9 @@
 package com.cwj.composefirebasesigninemailpassword.presentation.screens.auth.login
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,7 +27,10 @@ import com.cwj.composefirebasesigninemailpassword.util.Constants.LOGIN
 import com.cwj.composefirebasesigninemailpassword.util.Constants.NO_ACCOUNT
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    navigateToForgotPassword: () -> Unit,
+    navigateToSignUp: () -> Unit
+) {
     var email by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(EMPTY_VALUE))
     }
@@ -39,20 +45,27 @@ fun LoginScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        EmailTextField(email = email, onValueChange = {newValue -> email = newValue })
+        EmailTextField(email = email, onValueChange = { newValue -> email = newValue })
         SmallSpacer()
-        PasswordTextField(password = password, onValueChange = {newValue -> password = newValue })
+        PasswordTextField(password = password, onValueChange = { newValue -> password = newValue })
         SmallSpacer()
-        ForgotPasswordText()
+        ForgotPasswordText(
+            modifier = Modifier.align(alignment = Alignment.End),
+            navigateToForgotPassword = navigateToForgotPassword
+        )
         LargeSpacer()
         AuthButton(text = LOGIN, onClickAction = {})
-        BigSpacer()
-        AccountQueryText(text = NO_ACCOUNT, navigateToSignUp = {})
+        LargeSpacer()
+        AccountQueryText(
+            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+            text = NO_ACCOUNT,
+            navigateToSignUp = navigateToSignUp
+        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun LoginPreview() {
-    LoginScreen()
+    LoginScreen(navigateToSignUp = {}, navigateToForgotPassword = {})
 }
