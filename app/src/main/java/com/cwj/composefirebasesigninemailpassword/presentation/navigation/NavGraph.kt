@@ -42,7 +42,14 @@ fun NavGraph(navController: NavHostController) {
         ) {
             LoginScreen(
                 navigateToForgotPassword = { navController.navigate(ForgotPassword.route) },
-                navigateToSignUp = { navController.navigate(Signup.route) }
+                navigateToSignUp = { navController.navigate(Signup.route) },
+                navigateToHome = {
+                    navController.navigate(Home.route) {
+                        popUpTo(navController.graph.id) {
+                            inclusive = true
+                        }
+                    }
+                }
             )
         }
         composable(ForgotPassword.route,
@@ -77,10 +84,12 @@ fun NavGraph(navController: NavHostController) {
         ) {
             SignUpScreen(
                 navigateToLogin = { navController.popBackStack() },
-                navigateToHome = { navController.navigate(Home.route){
-                    popUpTo(navController.graph.id) {
-                        inclusive = true
-                    }}
+                navigateToHome = {
+                    navController.navigate(Home.route) {
+                        popUpTo(navController.graph.id) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }
