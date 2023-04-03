@@ -4,16 +4,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.cwj.composefirebasesigninemailpassword.presentation.components.BigSpacer
 import com.cwj.composefirebasesigninemailpassword.presentation.components.LargeSpacer
 import com.cwj.composefirebasesigninemailpassword.presentation.components.SmallSpacer
@@ -26,40 +24,20 @@ import com.cwj.composefirebasesigninemailpassword.presentation.screens.auth.logi
 import com.cwj.composefirebasesigninemailpassword.util.Constants
 import com.cwj.composefirebasesigninemailpassword.util.Constants.HAVE_ACCOUNT
 import com.cwj.composefirebasesigninemailpassword.util.Constants.SIGNUP
+import kotlinx.coroutines.launch
 
 @Composable
 fun SignUpScreen(
-    navigateToLogin: () -> Unit
+    navigateToLogin: () -> Unit,
+    navigateToHome: () -> Unit,
+    viewModel: SignupViewModel = hiltViewModel()
 ) {
-    var email by rememberSaveable(stateSaver = TextFieldValue.Saver) {
-        mutableStateOf(TextFieldValue(Constants.EMPTY_VALUE))
-    }
-    var password by rememberSaveable(stateSaver = TextFieldValue.Saver) {
-        mutableStateOf(TextFieldValue(Constants.EMPTY_VALUE))
-    }
+    val coroutineScope = rememberCoroutineScope()
+    SignUpContent(navigateToLogin = navigateToLogin, signupUser = {email, password ->
+        coroutineScope.launch {
+            viewModel.signupUserWithEmailAndPassword(email, password )
+        }
+    })
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        EmailTextField(email = email, onValueChange = {newValue -> email = newValue })
-        SmallSpacer()
-        PasswordTextField(password = password, onValueChange = {newValue -> password = newValue })
-        LargeSpacer()
-        AuthButton(text = SIGNUP, onClickAction = {})
-        LargeSpacer()
-        AccountQueryText(
-            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-            text = HAVE_ACCOUNT,
-            navigateToSignUp = navigateToLogin)
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun SignupPreview() {
-    SignUpScreen(navigateToLogin = {})
+    SignUpAction(navigateToHome = navigateToHome)
 }

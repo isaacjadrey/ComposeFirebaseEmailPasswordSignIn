@@ -30,7 +30,7 @@ object Constants {
     const val NO_ACCOUNT = "Don't have an account? Sign up here."
     const val HAVE_ACCOUNT = "Already have an account? Sign in here."
     const val LOGGING_IN = "Logging in"
-    const val SIGNING_UP = "Signing up"
+    const val SIGNING_UP = "Creating account"
     const val FORGOT_PASSWORD_TEXT = "Oops! Sorry about that,\n" +
             "Kindly provide the email that you used for signing up\n" +
             "so that we send a password reset link"

@@ -75,9 +75,29 @@ fun NavGraph(navController: NavHostController) {
                 ) + fadeOut(animationSpec = tween(1500))
             }
         ) {
-            SignUpScreen(navigateToLogin = { navController.popBackStack() })
+            SignUpScreen(
+                navigateToLogin = { navController.popBackStack() },
+                navigateToHome = { navController.navigate(Home.route){
+                    popUpTo(navController.graph.id) {
+                        inclusive = true
+                    }}
+                }
+            )
         }
-        composable(Home.route) {
+        composable(Home.route,
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 1000 },
+                    animationSpec = tween(1000, easing = FastOutSlowInEasing)
+                ) + fadeIn(animationSpec = tween(1500))
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { 1000 },
+                    animationSpec = tween(1000, easing = FastOutSlowInEasing)
+                ) + fadeOut(animationSpec = tween(1500))
+            }
+        ) {
             HomeScreen()
         }
     }

@@ -26,22 +26,25 @@ import kotlinx.coroutines.job
 @Composable
 fun EmailTextField(
     email: TextFieldValue,
-    onValueChange: (newValue: TextFieldValue) -> Unit
+    onValueChange: (newValue: TextFieldValue) -> Unit,
+    imeAction: ImeAction
 ) {
     val focusManager = LocalFocusManager.current
     val focusRequester = FocusRequester()
 
     OutlinedTextField(
         value = email,
-        onValueChange = {newValue -> onValueChange(newValue)},
-        label = { Text(text = EMAIL_LABEL)},
+        onValueChange = { newValue -> onValueChange(newValue) },
+        label = { Text(text = EMAIL_LABEL) },
         singleLine = true,
-        leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = EMAIL)},
+        leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = EMAIL) },
         keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Email, imeAction = ImeAction.Next
+            keyboardType = KeyboardType.Email, imeAction = imeAction
         ),
-        keyboardActions = KeyboardActions(onNext = {focusManager.moveFocus(FocusDirection.Down)}),
-        modifier = Modifier.fillMaxWidth().focusRequester(focusRequester)
+        keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) }),
+        modifier = Modifier
+            .fillMaxWidth()
+            .focusRequester(focusRequester)
     )
 
     LaunchedEffect(key1 = Unit, block = {
@@ -52,5 +55,9 @@ fun EmailTextField(
 @Preview
 @Composable
 fun EmailPreview() {
-    EmailTextField(email = TextFieldValue(EMAIL_LABEL), onValueChange = {})
+    EmailTextField(
+        email = TextFieldValue(EMAIL_LABEL),
+        onValueChange = {},
+        imeAction = ImeAction.Next
+    )
 }

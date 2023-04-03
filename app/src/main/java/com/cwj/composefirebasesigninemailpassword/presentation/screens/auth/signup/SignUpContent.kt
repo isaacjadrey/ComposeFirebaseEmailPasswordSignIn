@@ -1,4 +1,4 @@
-package com.cwj.composefirebasesigninemailpassword.presentation.screens.auth.forgot_password
+package com.cwj.composefirebasesigninemailpassword.presentation.screens.auth.signup
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,15 +16,22 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cwj.composefirebasesigninemailpassword.presentation.components.LargeSpacer
+import com.cwj.composefirebasesigninemailpassword.presentation.components.SmallSpacer
+import com.cwj.composefirebasesigninemailpassword.presentation.screens.auth.common.AccountQueryText
 import com.cwj.composefirebasesigninemailpassword.presentation.screens.auth.common.AuthButton
 import com.cwj.composefirebasesigninemailpassword.presentation.screens.auth.common.EmailTextField
-import com.cwj.composefirebasesigninemailpassword.presentation.screens.auth.components.ForgotPasswordTextDirection
+import com.cwj.composefirebasesigninemailpassword.presentation.screens.auth.common.PasswordTextField
 import com.cwj.composefirebasesigninemailpassword.util.Constants
-import com.cwj.composefirebasesigninemailpassword.util.Constants.RESET_PASSWORD
 
 @Composable
-fun ForgotPasswordScreen() {
+fun SignUpContent(
+    navigateToLogin: () -> Unit,
+    signupUser: (email: String, password: String) -> Unit
+) {
     var email by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(Constants.EMPTY_VALUE))
+    }
+    var password by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(Constants.EMPTY_VALUE))
     }
 
@@ -35,20 +42,28 @@ fun ForgotPasswordScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        ForgotPasswordTextDirection()
-        LargeSpacer()
         EmailTextField(
             email = email,
             onValueChange = { newValue -> email = newValue },
-            imeAction = ImeAction.Done
+            imeAction = ImeAction.Next
         )
+        SmallSpacer()
+        PasswordTextField(password = password, onValueChange = { newValue -> password = newValue })
         LargeSpacer()
-        AuthButton(text = RESET_PASSWORD, onClickAction = {})
+        AuthButton(
+            text = Constants.SIGNUP,
+            onClickAction = { signupUser(email.text, password.text) })
+        LargeSpacer()
+        AccountQueryText(
+            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+            text = Constants.HAVE_ACCOUNT,
+            navigateToSignUp = navigateToLogin
+        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ForgotPreview() {
-    ForgotPasswordScreen()
+fun SignupPreview() {
+    SignUpContent(navigateToLogin = {}, signupUser = { email, password -> })
 }
