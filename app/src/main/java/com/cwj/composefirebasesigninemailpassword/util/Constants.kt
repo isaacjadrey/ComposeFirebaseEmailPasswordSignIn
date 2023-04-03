@@ -3,6 +3,12 @@ package com.cwj.composefirebasesigninemailpassword.util
 object Constants {
     // Most string values are put up in here fro quick access
 
+    // Screens
+    const val LOGIN_SCREEN = "Login"
+    const val SIGNUP_SCREEN = "Sign up"
+    const val FORGOT_PASSWORD_SCREEN = "Forgot password"
+    const val HOME_SCREEN = "Home"
+
     // Labels
     const val EMAIL_LABEL = "Email"
     const val PASSWORD_LABEL = "Password"
