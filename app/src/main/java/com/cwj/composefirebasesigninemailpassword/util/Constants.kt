@@ -39,6 +39,13 @@ object Constants {
     const val LOCK = "Lock"
     const val EMAIL = "Email"
     const val PASSWORD_VISIBILITY = "Password visibility"
+    const val BACK = "Back"
+
+    // Toasts
+    const val PASSWORD_RESET_MESSAGE = "We've sent an email with a reset link to your provided" +
+            " email address"
+    const val LOGIN_SUCCESS = "Logged in successfully"
+    const val SIGNUP_SUCCESS = "Account created successfully"
 
     // Utils
     const val EMPTY_VALUE = ""

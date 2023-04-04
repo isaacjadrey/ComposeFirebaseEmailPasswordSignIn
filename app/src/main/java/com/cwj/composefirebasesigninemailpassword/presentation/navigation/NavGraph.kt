@@ -66,7 +66,7 @@ fun NavGraph(navController: NavHostController) {
                 ) + fadeOut(animationSpec = tween(1500))
             }
         ) {
-            ForgotPasswordScreen()
+            ForgotPasswordScreen(navigateBack = { navController.popBackStack() })
         }
         composable(Signup.route,
             enterTransition = {

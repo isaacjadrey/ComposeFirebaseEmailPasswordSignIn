@@ -1,1 +1,1 @@
-# Compose Firebase MVVM Email PAssword Authentication
+# Compose Firebase MVVM Email Password Authentication
